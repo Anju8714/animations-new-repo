@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Detail - 360° Multiple Products</title>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+    }
+
+    .product-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .product-360 {
+      width: 100%;
+      cursor: grab;
+      position: relative;
+    }
+
+    .product-360 img {
+      width: 100%;
+      user-select: none;
+      pointer-events: none;
+      border-radius: 10px;
+    }
+
+    .product-card h3 {
+      margin: 15px 0 5px;
+      font-size: 20px;
+    }
+
+    .product-card p {
+      color: #E88B25;
+      font-size: 18px;
+      margin: 5px 0 15px;
+    }
+
+    .drag-hint {
+      font-size: 12px;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    button.add-cart {
+      padding: 10px 20px;
+      background: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    button.add-cart:hover {
+      background: #333;
+    }
+
+    @media (max-width: 768px) {
+      .products-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1 style="text-align:center; margin-bottom: 40px;">360° Product Viewer</h1>
+
+<div class="products-container">
+
+  <!-- Product 1 -->
+  <div class="product-card">
+    <div class="product-360" data-path="images/chair/" data-frames="52">
+      <img src="images/chair/product_01.jpg" alt="Camera 1">
+    </div>
+    <p class="drag-hint">⬅ Drag to rotate ➡</p>
+    <h3>DSLR Camera</h3>
+    <p>₹ 89,999</p>
+    <button class="add-cart">Add to Cart</button>
+  </div>
+
+  <!-- Product 2 -->
+  <div class="product-card">
+    <div class="product-360" data-path="images/watch1/" data-frames="36">
+      <img src="images/watch1/product_01.jpg" alt="Smart Watch">
+    </div>
+    <p class="drag-hint">⬅ Drag to rotate ➡</p>
+    <h3>Smart Watch</h3>
+    <p>₹ 12,999</p>
+    <button class="add-cart">Add to Cart</button>
+  </div>
+
+  <div class="product-card">
+    <div class="product-360" data-path="images/camera1/" data-frames="36">
+      <img src="images/camera1/product_01.jpg" alt="Sports Shoe">
+    </div>
+    <p class="drag-hint">⬅ Drag to rotate ➡</p>
+    <h3>Sports Shoe</h3>
+    <p>₹ 4,999</p>
+    <button class="add-cart">Add to Cart</button>
+  </div>
+
+</div>
+
+<!-- <script>
+$(function () {
+
+  $('.product-360').each(function () {
+
+    const box = $(this);
+    const img = box.find('img');
+
+    const frames = +box.data('frames');
+    const path = box.data('path');
+
+    let i = 1, drag = false, x = 0, timer;
+
+    const set = n => img.attr('src', `${path}product_${String(n).padStart(2,'0')}.jpg`);
+
+    const auto = () => timer = setInterval(() => {
+      i = i % frames + 1;
+      set(i);
+    }, 100); // adjust speed here
+
+    auto();
+
+    box.on('mousedown touchstart', e => {
+      drag = true;
+      clearInterval(timer);
+      x = e.pageX || e.originalEvent.touches[0].pageX;
+    });
+
+    $(document)
+      .on('mousemove touchmove', e => {
+        if (!drag) return;
+        let nx = e.pageX || e.originalEvent.touches[0].pageX;
+        if (Math.abs(nx - x) > 5) {  // drag sensitivity
+          i += nx > x ? -1 : 1;
+          i = (i + frames - 1) % frames + 1;
+          set(i);
+          x = nx;
+        }
+      })
+      .on('mouseup touchend', () => {
+        if (drag) { drag = false; auto(); }
+      });
+
+  });
+
+});
+</script> -->
+<script>
+$(function () {
+
+  $('.product-360').each(function () {
+
+    const box = $(this);
+    const img = box.find('img');
+
+    const frames = +box.data('frames');
+    const path = box.data('path');
+
+    let frame = 1;
+    let isDragging = false;
+    let startX = 0;
+    let autoTimer = null;
+
+    //  IMPORTANT for iOS
+    box.css({
+      'touch-action': 'none',
+      'cursor': 'grab',
+      'user-select': 'none'
+    });
+
+    function setFrame(n) {
+      img.attr('src', `${path}product_${String(n).padStart(2, '0')}.jpg`);
+    }
+
+    // -------- AUTO ROTATION --------
+    function startAuto() {
+      stopAuto();
+      autoTimer = setInterval(() => {
+        frame = frame % frames + 1;
+        setFrame(frame);
+      }, 160); // slower & controllable
+    }
+
+    function stopAuto() {
+      if (autoTimer) clearInterval(autoTimer);
+      autoTimer = null;
+    }
+
+    startAuto();
+
+    // -------- POINTER EVENTS (WORKS EVERYWHERE) --------
+    box.on('pointerdown', function (e) {
+      e.preventDefault();
+      isDragging = true;
+      stopAuto();
+      startX = e.clientX;
+      box.css('cursor', 'grabbing');
+    });
+
+    $(window).on('pointermove', function (e) {
+      if (!isDragging) return;
+
+      const diff = e.clientX - startX;
+
+      if (Math.abs(diff) > 6) { // drag sensitivity
+        frame += diff > 0 ? -1 : 1; 
+        frame = (frame + frames - 1) % frames + 1;
+        setFrame(frame);
+        startX = e.clientX;
+      }
+    });
+
+    $(window).on('pointerup pointercancel', function () {
+      if (!isDragging) return;
+      isDragging = false;
+      box.css('cursor', 'grab');
+      startAuto();
+    });
+
+    // Prevent ghost image dragging (desktop)
+    img.on('dragstart', e => e.preventDefault());
+
+  });
+
+});
+</script>
+
+
+</body>
+</html>

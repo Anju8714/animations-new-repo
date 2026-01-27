@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Diamond Scroll Lock (Vanilla JS)</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: serif;
+  background: #f9f7f4;
+}
+
+/* Spacer before */
+.spacer {
+  height: 100vh;
+}
+
+/* HERO PINNED SECTION */
+.hero {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+/* Wrapper controls scroll range */
+.hero-wrap {
+  height: 220vh; /* controls animation length */
+  position: relative;
+}
+
+/* DIAMOND */
+.diamond-ring {
+  width: 286px;
+  height: 239px;
+  position: absolute;
+  top: 20%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  background-image: url("https://ion.jamesallen.com/images/amazingHomepage/Diamond_Sprite.png");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  z-index: 3;
+}
+
+/* RING */
+.ring {
+  width: 1166px;
+  position: absolute;
+  top: 194px;
+  left: 60%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+/* CONTENT */
+.content {
+  height: 150vh;
+  padding: 120px;
+}
+  header {
+      background: #ffffff;
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    header .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    header nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    /* Banner */
+    .banner {
+      height: 300px;
+      background: linear-gradient(120deg, #4f46e5, #3b82f6);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .banner h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    /* Two Column Section */
+    .two-col {
+      display: flex;
+      gap: 40px;
+      padding: 60px 40px;
+    }
+
+    .two-col .col {
+      flex: 1;
+    }
+
+    .two-col h2 {
+      margin-bottom: 16px;
+    }
+
+
+    /* Footer */
+    footer {
+      background: #111827;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .two-col {
+        flex-direction: column;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+</style>
+</head>
+
+<body>
+ <header>
+    <div class="logo">MyLogo</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Banner -->
+  <section class="banner">
+    <div>
+      <h1>Welcome to Our Website</h1>
+      <p>Simple, clean and responsive layout</p>
+    </div>
+  </section>
+
+  <!-- Two Column Section -->
+  <section class="two-col">
+    <div class="col">
+      <h2>Left Column</h2>
+      <p>
+        This is the left column content. You can place text, images, or cards here.
+      </p>
+    </div>
+
+    <div class="col">
+      <h2>Right Column</h2>
+      <p>
+        This is the right column content. Perfect for descriptions, forms, or images.
+      </p>
+    </div>
+  </section>
+
+
+<div class="hero-wrap">
+  <section class="hero">
+    <div class="diamond-ring"></div>
+    <img class="ring" src="https://ion.jamesallen.com/images/amazingHomepage/ring.png?v=2">
+  </section>
+</div>
+
+
+  <footer>
+    <p>© 2026 Your Company Name. All rights reserved.</p>
+  </footer>
+
+
+<script>
+const diamond = document.querySelector(".diamond-ring");
+const heroWrap = document.querySelector(".hero-wrap");
+
+const FRAMES = 20;
+const FRAME_HEIGHT = 239;
+
+const START_Y = 0;
+const END_Y = 120;
+
+window.addEventListener("scroll", () => {
+  const rect = heroWrap.getBoundingClientRect();
+  const scrollRange = heroWrap.offsetHeight - window.innerHeight;
+
+  /* Normalize progress 0 → 1 */
+  let progress = -rect.top / scrollRange;
+  progress = Math.max(0, Math.min(1, progress)); // clamp
+
+  /* SPRITE ROTATION */
+  const frame = Math.floor(progress * (FRAMES - 1));
+  diamond.style.backgroundPosition = `0px -${frame * FRAME_HEIGHT}px`;
+
+  /* DROP + LOCK */
+  const y = START_Y + (END_Y - START_Y) * progress;
+  diamond.style.transform = `translate(-50%, calc(-50% + ${y}px))`;
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Classy GSAP Animations</title>
+
+<!-- GSAP -->
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Georgia", serif;
+  background: #f9f7f4;
+  color: #111;
+}
+
+/* SECTION BASE */
+section {
+  padding: 120px 80px;
+}
+
+/* 1️⃣ HERO */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.hero h1 {
+  font-size: 64px;
+  letter-spacing: -1px;
+}
+
+/* 2️⃣ TEXT REVEAL */
+.reveal {
+  font-size: 48px;
+  overflow: hidden;
+}
+
+.reveal span {
+  display: inline-block;
+}
+
+/* 3️⃣ PARALLAX IMAGE */
+.parallax-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.parallax-img {
+  width: 420px;
+  border-radius: 16px;
+}
+
+/* 4️⃣ CARDS */
+.cards {
+  display: flex;
+  gap: 24px;
+}
+
+.card {
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  flex: 1;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* 5️⃣ PRODUCT */
+.product-section {
+  text-align: center;
+}
+
+.product {
+  width: 300px;
+  margin: auto;
+}
+
+/* 6️⃣ BUTTON */
+.btn-wrap {
+  text-align: center;
+}
+
+.btn {
+  padding: 16px 36px;
+  border-radius: 30px;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-title">Design Your Ring</h1>
+</section>
+
+<!-- TEXT REVEAL -->
+<section>
+  <h2 class="reveal"><span>Handcrafted Perfection</span></h2>
+</section>
+
+<!-- PARALLAX -->
+<section class="parallax-section">
+  <img
+    class="parallax-img"
+    src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3"
+  >
+</section>
+
+<!-- STAGGERED CARDS -->
+<section>
+  <div class="cards">
+    <div class="card">Premium Materials</div>
+    <div class="card">Expert Craftsmanship</div>
+    <div class="card">Lifetime Care</div>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section class="product-section">
+  <img
+    class="product"
+    src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb"
+  >
+</section>
+
+<!-- BUTTON -->
+<section class="btn-wrap">
+  <button class="btn">Explore Collection</button>
+</section>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* 1️⃣ PINNED HERO */
+gsap.timeline({
+  scrollTrigger: {
+    trigger: ".hero",
+    start: "top top",
+    end: "+=100%",
+    scrub: true,
+    pin: true
+  }
+})
+.from(".hero-title", {
+  y: 80,
+  opacity: 0,
+  ease: "none"
+});
+
+/* 2️⃣ TEXT REVEAL */
+gsap.from(".reveal span", {
+  y: 100,
+  duration: 1,
+  ease: "power4.out",
+  scrollTrigger: {
+    trigger: ".reveal",
+    start: "top 80%"
+  }
+});
+
+/* 3️⃣ PARALLAX IMAGE */
+gsap.to(".parallax-img", {
+  yPercent: -15,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".parallax-section",
+    scrub: true
+  }
+});
+
+/* 4️⃣ STAGGERED CARDS */
+gsap.from(".card", {
+  y: 60,
+  opacity: 0,
+  stagger: 0.15,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".cards",
+    start: "top 80%"
+  }
+});
+
+/* 5️⃣ PRODUCT SCALE */
+gsap.from(".product", {
+  scale: 0.95,
+  opacity: 0,
+  duration: 1.2,
+  ease: "power2.out",
+  scrollTrigger: {
+    trigger: ".product",
+    start: "top 75%"
+  }
+});
+
+/* 6️⃣ MICRO HOVER */
+const btn = document.querySelector(".btn");
+
+btn.addEventListener("mouseenter", () => {
+  gsap.to(btn, {
+    y: -4,
+    duration: 0.3,
+    ease: "power2.out"
+  });
+});
+
+btn.addEventListener("mouseleave", () => {
+  gsap.to(btn, {
+    y: 0,
+    duration: 0.3,
+    ease: "power2.inOut"
+  });
+});
+</script>
+
+</body>
+</html>
