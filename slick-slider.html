@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Our Collections – Diamond Slider</title>
+
+<!-- Slick CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  /* padding: 80px 0px 80px 60px; */
+  font-family: "Georgia", serif;
+  background: #ffffff;
+  color: #111;
+}
+
+/* ===== Heading ===== */
+.section-header {
+  position: relative;
+  margin-bottom: 60px;
+}
+.top-text{
+  position: relative;
+}
+
+.section-header h2 {
+  font-size: 52px;
+  font-weight: 400;
+  position: relative;
+  z-index: 2;
+}
+
+.section-header h2 span {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.section-header .bg-text {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  font-size: 90px;
+  color: rgba(0,0,0,0.05);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ===== Arrows ===== */
+.slider-nav {
+  position: absolute;
+  right: 60px;
+  top: 95px;
+  display: flex;
+  gap: 18px;
+}
+
+.slider-nav button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* keep arrows visible */
+.slick-arrow.slick-disabled {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* ===== Slider ===== */
+.collection-slider {
+  margin-top: 40px;
+}
+
+/* ===== Card ===== */
+.diamond-card {
+  padding: 20px;
+}
+
+.card-inner {
+   background: #efeff0c2;
+  border-radius: 22px;
+  padding: 26px 26px 32px;
+  height: 100%;
+}
+
+/* badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-family: Arial, sans-serif;
+  letter-spacing: 1px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #fff;
+  margin-bottom: 20px;
+}
+
+.badge span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* diamond image */
+.diamond-wrap {
+  text-align: center;
+  padding: 10px 0 20px;
+}
+
+.diamond-wrap img {
+  width: 200px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* text */
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  margin-top: 50px;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+.collection-slider .slick-list {
+  padding-right: 180px;
+}
+
+@media (max-width: 1024px) {
+  .collection-slider .slick-list {
+    padding-right: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .collection-slider .slick-list {
+    padding-right: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .collection-slider .slick-list {
+    padding-right: 40px;
+  }
+}
+
+/* badge colors */
+.blue span { background: #4a6cf7; }
+.green span { background: #3bb54a; }
+.red span { background: #e5533d; }
+.yellow span { background: #f2b705; }
+
+
+
+.collections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+}
+.card {
+  width: 420px;
+  background: #f4f4f4;
+  border-radius: 14px;
+  padding: 26px 30px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  overflow: visible;
+}
+
+/* IMAGE */
+.stone-wrap {
+  width: 120px;
+  height: 90px;
+  position: relative;
+}
+
+.stone-wrap.pearl{
+  width: 86px;
+  height: 82px;
+}
+.stone-wrap img {
+  /* width: 120px; */
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: center bottom;
+  transition: transform 0.75s cubic-bezier(.19,1,.22,1),
+              filter 0.75s ease;
+}
+
+/* TEXT */
+.text {
+  transition: transform 0.6s cubic-bezier(.19,1,.22,1);
+}
+
+/* HOVER EFFECTS */
+.card:hover .stone-wrap img {
+  transform:
+    translateY(-30px)
+    rotate(-18deg)
+    scale(1.2);
+  /* filter: drop-shadow(0 18px 26px rgba(0,0,0,0.25)); */
+}
+.card:hover .stone-wrap.pearl img {
+transform:
+    translateY(-18px)
+    rotate(0deg)
+    scale(1.4);
+}
+.card:hover .text {
+  transform: translateY(6px);
+}
+
+.text h3 {
+  margin: 0;
+  font-style: italic;
+  font-size: 20px;
+ 
+}
+
+.text p {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #666;
+   margin-bottom: 0px;
+}
+.container{
+  width: 1362px;
+  margin: 0 auto;
+}
+
+
+.features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin: 40px auto;
+}
+/* .feature-box {
+  display: flex;
+} */
+
+.feature-box:nth-child(odd) .overlay {
+  justify-content: center;
+  align-items: flex-end;
+  text-align: right;
+}
+.feature-box:nth-child(even) .overlay {
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+/* Box */
+.feature-box {
+  position: relative;
+  overflow: hidden;
+  height: 280px;
+  cursor: pointer;
+  filter: grayscale(1);
+  width: 50%;
+  
+}
+
+/* Image */
+.feature-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* Overlay (always visible) */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+  padding: 20px;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+}
+
+/* H3 visible initially */
+.overlay h3 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  font-weight: 500;
+
+  transform: translateY(0);
+  transition: transform 0.6s ease;
+   font-family: "Playfair Display", serif;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 36px;
+  leading-trim: NONE;
+  line-height: 25px;
+  letter-spacing: 0%;
+  text-align: right;
+  vertical-align: middle;
+  margin: 0px;
+
+}
+
+/* P hidden initially */
+.overlay p {
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 350px;
+  margin: 0px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+.feature-box:hover{
+  filter: none;
+}
+/* Hover effects */
+.feature-box:hover img {
+  transform: scale(1.05);
+}
+
+/* Move heading up smoothly */
+.feature-box:hover .overlay h3 {
+  transform: translateY(-15px);
+}
+
+/* Reveal paragraph */
+.feature-box:hover .overlay p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-box {
+    height: 240px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="section-header">
+  <div class="bg-text">Our Collections</div>
+  <h2>Our <span>Collections</span></h2>
+
+  <div class="slider-nav">
+    <button class="prev">←</button>
+    <button class="next">→</button>
+  </div>
+</div>
+
+<div class="collection-slider">
+
+  <!-- Blue -->
+  <div class="diamond-card" data-path="ring_frames/blue/">
+    <div class="card-inner">
+      <div class="badge blue"><span></span> BLUE</div>
+
+      <div class="diamond-wrap">
+        <img src="ring_frames/blue/frame_00001.jpg" />
+      </div>
+
+    </div>
+
+      <div class="card-title">Blue Sapphire (Neelam)</div>
+      <div class="card-desc">
+        The Stone of Saturn. For Protection & Success.
+      </div>
+  </div>
+
+  <!-- Green -->
+  <div class="diamond-card" data-path="ring_frames/green/">
+    <div class="card-inner">
+      <div class="badge green"><span></span> GREEN</div>
+
+      <div class="diamond-wrap">
+        <img src="ring_frames/green/frame_00001.jpg" />
+      </div>
+
+    </div>
+
+      <div class="card-title">Emerald (Panna)</div>
+      <div class="card-desc">
+        The Stone of Saturn. For Protection & Success.
+      </div>
+  </div>
+
+  <!-- Red -->
+  <div class="diamond-card" data-path="ring_frames/green/">
+    <div class="card-inner">
+      <div class="badge red"><span></span> RED</div>
+
+      <div class="diamond-wrap">
+        <img src="ring_frames/green/frame_00001.jpg" />
+      </div>
+
+     
+    </div>
+     <div class="card-title">Hessonite (Gomed)</div>
+      <div class="card-desc">
+        The Stone of Rahu. For Clarity & Protection.
+      </div>
+  </div>
+
+  <!-- Yellow -->
+  <div class="diamond-card" data-path="ring_frames/green/">
+    <div class="card-inner">
+      <div class="badge yellow"><span></span> YELLOW</div>
+
+      <div class="diamond-wrap">
+        <img src="ring_frames/green/frame_00001.jpg" />
+      </div>
+
+    </div>
+
+      <div class="card-title">Yellow Sapphire (Pukhraj)</div>
+      <div class="card-desc">
+        The Stone of Jupiter. For Wealth & Wisdom.
+      </div>
+  </div>
+
+</div>
+
+<section class="section-header">
+  <div class="container custom-container">
+    <div class="top-text">
+       <div class="bg-text">Our Collections</div>
+  <h2>Our <span>Collections</span></h2>
+    </div>
+   
+
+
+<div class="collections">
+
+  <div class="card">
+  <div class="stone-wrap">
+    <img src="images/blue-diamond.png">
+  </div>
+
+  <div class="text">
+    <h3>Blue Sapphire</h3>
+    <p>Royal, Divine, Powerful</p>
+  </div>
+</div>
+
+  <div class="card">
+  <div class="stone-wrap">
+    <img src="images/red-stone.png">
+  </div>
+
+  <div class="text">
+    <h3>Blue Sapphire</h3>
+    <p>Royal, Divine, Powerful</p>
+  </div>
+</div>
+
+  <div class="card">
+  <div class="stone-wrap">
+    <img src="images/emerald.png">
+  </div>
+
+  <div class="text">
+    <h3>Blue Sapphire</h3>
+    <p>Royal, Divine, Powerful</p>
+  </div>
+</div>
+
+  <div class="card">
+  <div class="stone-wrap">
+    <img src="images/yellow-saphire.png">
+  </div>
+
+  <div class="text">
+    <h3>Blue Sapphire</h3>
+    <p>Royal, Divine, Powerful</p>
+  </div>
+</div>
+
+  <div class="card">
+  <div class="stone-wrap">
+    <img src="images/diamond1.png">
+  </div>
+
+  <div class="text">
+    <h3>Blue Sapphire</h3>
+    <p>Royal, Divine, Powerful</p>
+  </div>
+</div>
+
+  <div class="card">
+  <div class="stone-wrap pearl">
+    <img src="images/pearl.png">
+  </div>
+
+  <div class="text">
+    <h3>Blue Sapphire</h3>
+    <p>Royal, Divine, Powerful</p>
+  </div>
+</div>
+
+  <div class="card">
+  <div class="stone-wrap">
+    <img src="images/coral.png">
+  </div>
+
+  <div class="text">
+    <h3>Blue Sapphire</h3>
+    <p>Royal, Divine, Powerful</p>
+  </div>
+</div>
+
+  <div class="card">
+  <div class="stone-wrap">
+    <img src="images/hessonte.png">
+  </div>
+
+  <div class="text">
+    <h3>Blue Sapphire</h3>
+    <p>Royal, Divine, Powerful</p>
+  </div>
+</div>
+
+  <div class="card">
+  <div class="stone-wrap pearl">
+    <img src="images/cat-eye.png">
+  </div>
+
+  <div class="text">
+    <h3>Blue Sapphire</h3>
+    <p>Royal, Divine, Powerful</p>
+  </div>
+</div>
+</div>
+</div>
+</section>
+<div class="features-grid">
+
+  <div class="feature-box">
+    <img src="images/gr-1.png" alt="">
+    <div class="overlay">
+      <h3>History & Enterprise</h3>
+      <p>Decades of trusted experience in sourcing and understanding fine gemstones.</p>
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="images/gr-2.png" alt="">
+    <div class="overlay">
+      <h3>Diverse Collections</h3>
+      <p>Wide range of gemstones curated from trusted global sources.</p>
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="images/gr-3.png" alt="">
+    <div class="overlay">
+      <h3>Transparent Operations</h3>
+      <p>Clear pricing, ethical sourcing, and complete authenticity.</p>
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="images/gr-4.png" alt="">
+    <div class="overlay">
+      <h3>Certified Gemstones</h3>
+      <p>Every gemstone is tested and certified by reputed laboratories.</p>
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="images/gr-5.png" alt="">
+    <div class="overlay">
+      <h3>Easy Returns</h3>
+      <p>Hassle-free return policy with complete peace of mind.</p>
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="images/gr-6.png" alt="">
+    <div class="overlay">
+      <h3>1 Lakh+ Happy Customers</h3>
+      <p>Trusted by thousands of customers across the country.</p>
+    </div>
+  </div>
+
+</div>
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+const FRAME_COUNT = 120;
+const ROTATE_SPEED = 80;
+
+/* ---------- Slick ---------- */
+$('.collection-slider').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  infinite: false,
+  arrows: true,
+  prevArrow: $('.prev'),
+  nextArrow: $('.next'),
+  speed: 600,
+  responsive: [
+    { breakpoint: 1024, settings: { slidesToShow: 2 } },
+    { breakpoint: 768,  settings: { slidesToShow: 1 } }
+  ]
+});
+
+/* ---------- 360 Auto Rotate ---------- */
+$('.diamond-card').each(function () {
+
+  const card = $(this);
+  const img = card.find('img');
+  const basePath = card.data('path'); // 🔥 important
+
+  // extract starting frame number from src
+  const match = img.attr('src').match(/frame_(\d+)\.jpg$/);
+  const START_FRAME = match ? parseInt(match[1], 10) : 0;
+
+  let frame = START_FRAME;
+
+  /* preload */
+  for (let i = 0; i < FRAME_COUNT; i++) {
+    const preload = new Image();
+    const num = START_FRAME + i;
+    preload.src = `${basePath}frame_${String(num).padStart(5,'0')}.jpg`;
+  }
+
+  setInterval(() => {
+    frame = (frame - START_FRAME + 1) % FRAME_COUNT + START_FRAME;
+
+    img.attr(
+      'src',
+      `${basePath}frame_${String(frame).padStart(5,'0')}.jpg`
+    );
+  }, ROTATE_SPEED);
+
+});
+</script>
+
+
+</body>
+</html>
